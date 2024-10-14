@@ -4,6 +4,9 @@ controllers:
         namespace: App\Controller
     type: attribute
 
+api_login_check:
+    path: /api/login
+
 api:
     resource: './routes/api.yaml'
     prefix: /api

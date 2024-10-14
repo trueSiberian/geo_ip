@@ -1,0 +1,90 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Geo Ip
+  description: Определение расположения IP
+servers:
+  - url: 'localhost:8090'
+    description: local
+components:
+  securitySchemes:
+    JWT:
+      type: http
+      scheme: bearer
+  schemas:
+    GeoIp:
+      type: object
+      properties:
+        ip:
+          type: string
+        country:
+          type: string
+        city: 
+          type: string
+        source: 
+          type: string
+    JwtToken:
+      type: object
+      properties:
+        token:
+          type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: number
+        message:
+          type: string
+    LoginRequst:
+      type: object
+      properties:
+        login:
+          type: number
+        password:
+          type: string
+paths:
+  /api/login:
+    post:
+      summary: Получение JWT токена
+      operationId: get-api-geo-jwt
+      description: Получение JWT токена
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequst'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JwtToken'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/geo/{ip}:
+    parameters:
+      - schema:
+          type: string
+        name: ip
+        in: path
+        required: true
+              
+    get:
+      summary: Получение информации об IP
+      operationId: get-api-geo-ip
+      description: Получение информации об IP
+      security:
+        - JWT: [ ]
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeoIp'
+        

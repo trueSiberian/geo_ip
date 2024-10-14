@@ -25,7 +25,7 @@ class GeoIpService
     {
         $geoIp = $this->geoIpRepository->findOneByIp($ip);
         if (empty($geoIp)) {
-            $geoIpData = $this->hanlder('')->getIpData($ip);
+            $geoIpData = $this->hanlder('ip_who_is')->getIpData($ip);
             $geoIp = $this->save($geoIpData);
         }
         return $geoIp;

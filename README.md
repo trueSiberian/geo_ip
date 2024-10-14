@@ -6,9 +6,12 @@ Installation
 
 `cp .env.example .env`
 
-set database config
+Настроить доступ к БД в файле .env
 
-`php bin/console doctrine:migrations:migrate`
+`php bin/console lexik:jwt:generate-keypair` - генерация ключей
 
+`php bin/console doctrine:migrations:migrate` - миграции
 
-URL: `/api/geo/{IP_ADDRESS}`
+`php bin/console app:create-user <username> <password>` - созданеи пользователя или обновление пароля
+
+Файл openapi.yaml с описание ручек, запросов и ответов
