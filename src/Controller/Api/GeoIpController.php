@@ -19,6 +19,9 @@ class GeoIpController extends ApiController
 
     public function show(string $ip): Response
     {
+        if(!filter_var($ip, FILTER_VALIDATE_IP)){
+            return $this->fail('Ip address not valid', 400);
+        }
         $geoIp = $this->geoIpService->findByIp($ip);
         return $this->success($this->serializer->serializeGeoIp($geoIp));
     }
