@@ -1,0 +1,4 @@
+geo.show:
+    path: /geo/{ip}
+    controller: App\Controller\Api\GeoIpController::show
+    methods: get
