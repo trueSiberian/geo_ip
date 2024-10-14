@@ -8,4 +8,7 @@ Installation
 
 set database config
 
-`php bin/console doctrine:migrations:migrate` - 
+`php bin/console doctrine:migrations:migrate`
+
+
+URL: `/api/geo/{IP_ADDRESS}`
