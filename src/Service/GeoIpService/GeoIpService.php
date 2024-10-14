@@ -5,8 +5,10 @@ namespace App\Service\GeoIpService;
 use App\Entity\GeoIp;
 use App\Repository\GeoIpRepository;
 use App\Service\GeoIpService\Enums\GeoIpHandlerEnum;
+use App\Service\GeoIpService\Excetions\GeoIpIntegrationNotFound;
 use App\Service\GeoIpService\Interfaces\GeoIpDataInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 
 class GeoIpService
 {
@@ -45,6 +47,10 @@ class GeoIpService
 
     protected function hanlder(string $handler)
     {
-        return GeoIpHandlerEnum::mapHandlerToClass($handler);
+        try {
+            return GeoIpHandlerEnum::from($handler)->mapHandlerToClass();
+        } catch (Exception $e) {
+            throw new GeoIpIntegrationNotFound('Integration' . $handler . 'not found: '. $e->getMessage());
+        }
     }
 }
