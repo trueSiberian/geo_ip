@@ -14,4 +14,6 @@ Installation
 
 `php bin/console app:create-user <username> <password>` - созданеи пользователя или обновление пароля
 
+`bin/console cache:pool:clear --all` - сброс кэша
+
 Файл openapi.yaml с описание ручек, запросов и ответов

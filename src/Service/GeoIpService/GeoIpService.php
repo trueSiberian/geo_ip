@@ -9,6 +9,7 @@ use App\Service\GeoIpService\Excetions\GeoIpIntegrationNotFound;
 use App\Service\GeoIpService\Interfaces\GeoIpDataInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use ValueError;
 
 class GeoIpService
 {
@@ -25,7 +26,7 @@ class GeoIpService
     {
         $geoIp = $this->geoIpRepository->findOneByIp($ip);
         if (empty($geoIp)) {
-            $geoIpData = $this->hanlder('ip_who_is')->getIpData($ip);
+            $geoIpData = $this->hanlder(GeoIpHandlerEnum::IP_WHO_IS_HANDLER->value)->getIpData($ip);
             $geoIp = $this->save($geoIpData);
         }
         return $geoIp;
@@ -49,7 +50,7 @@ class GeoIpService
     {
         try {
             return GeoIpHandlerEnum::from($handler)->mapHandlerToClass();
-        } catch (Exception $e) {
+        } catch (ValueError $e) {
             throw new GeoIpIntegrationNotFound('Integration' . $handler . 'not found: '. $e->getMessage());
         }
     }
